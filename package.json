@@ -1,0 +1,18 @@
+{
+  "name": "code-challenge",
+  "version": "1.0.0",
+  "description": "Note that if you fork this repository, your responses may be publicly linked to this repo.   Please submit your application along with the solutions attached or linked.",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "src/*"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
