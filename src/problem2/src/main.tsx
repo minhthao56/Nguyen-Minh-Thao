@@ -1,13 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import "../app/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "../app/globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+// Create a client
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <App />
-     </ThemeProvider>
-  </React.StrictMode>,
-)
+      </ThemeProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
+);

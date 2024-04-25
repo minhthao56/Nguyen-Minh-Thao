@@ -1,17 +1,15 @@
-import { ModeToggle } from "./components/mode-toggle";
-import { H4 } from "./components/h4";
-import { Label } from "./components/ui/label";
-import { Input } from "./components/ui/input";
+import MainForm from "./components/main-form";
+import Nav from "./components/nav";
 
 function App() {
   return (
     <>
-      <div className="w-full flex justify-around items-center border-b-2 py-2">
-        <H4>Logo</H4>
-        <ModeToggle />
+      <div className="mb-4">
+        <Nav />
       </div>
-      <Label htmlFor="amount-to-send">Amount to send</Label>
-      <Input type="text" id="amount-to-send" placeholder="Amount to send" />
+      <div className="w-full flex justify-center">
+        <MainForm />
+      </div>
     </>
   );
 }
