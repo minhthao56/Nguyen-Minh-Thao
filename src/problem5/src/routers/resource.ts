@@ -1,14 +1,17 @@
 import express, { Router } from "express";
 import { 
-    controllerGetResource, 
+    controllerGetResources, 
     controllerCreateResource, 
-    controllerUpdateResource ,
+    controllerUpdateResource,
     controllerDeleteResource, 
+    controllerGetDetailResource
 } from "../controllers/resource";
 
 const router: Router = express.Router();
 
-router.get("/", controllerGetResource);
+router.get("/", controllerGetResources);
+
+router.get("/:id", controllerGetDetailResource);
 
 router.post("/", controllerCreateResource)
 

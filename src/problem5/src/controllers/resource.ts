@@ -3,7 +3,7 @@ import { Connection } from "../db/connection";
 import { users, resource } from "../schema"
 import { eq, like, count } from "drizzle-orm";
 
-export const controllerGetResource = async (req: Request, resp: Response) => {
+export const controllerGetResources = async (req: Request, resp: Response) => {
     try {
         const page = req.query.page || 1;
         const rowPerPage = req.query.rowPerPage || 10;
@@ -50,6 +50,40 @@ export const controllerGetResource = async (req: Request, resp: Response) => {
 
 }
 
+
+export const controllerGetDetailResource = async (req: Request, resp: Response) => {
+    try {
+        const db = req.app.get("db") as Connection
+        const { id } = req.params;
+        const numericId = Number(id);
+
+        const findResource = await db.select({
+            userId: users.id,
+            userFullName: users.fullName,
+            userPhone: users.phone,
+            resourceId: resource.id,
+            resourceName: resource.name,
+            isAvailable: resource.isAvailable,
+            createdAt: resource.createdAt,
+            updatedAt: resource.updatedAt,
+        }).
+            from(resource).
+            where(eq(resource.id, numericId)).leftJoin(users, eq(users.id, resource.userId));
+
+        if (findResource.length === 0) {
+            resp.status(404).json({ error: "Resource not found" });
+            return;
+        }
+
+        resp.status(200).json(findResource[0]);
+
+    } catch (error) {
+        console.error("Error in controllerGetDetailResource", error);
+        resp.status(500).json({ error: "Internal Server Error" });
+    }
+
+}
+
 export const controllerCreateResource = async (req: Request, resp: Response) => {
     try {
         const db = req.app.get("db") as Connection
@@ -82,10 +116,12 @@ export const controllerUpdateResource = async (req: Request, resp: Response) => 
             resp.status(404).json({ error: "Resource not found" });
             return;
         }
+        const updatedAt = new Date();
         const updatedResource = await db.update(resource).set({
             name: name,
             isAvailable: isAvailable,
-            userId: userId
+            userId: userId,
+            updatedAt: updatedAt
         }).where(eq(resource.id, numericId));
 
         resp.status(200).json(updatedResource);
