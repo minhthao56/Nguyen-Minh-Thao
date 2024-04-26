@@ -8,6 +8,13 @@
       "when": 1714108197396,
       "tag": "0000_familiar_jackal",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1714121079180,
+      "tag": "0001_foamy_roland_deschain",
+      "breakpoints": true
     }
   ]
 }

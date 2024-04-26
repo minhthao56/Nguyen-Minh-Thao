@@ -1,8 +1,11 @@
 import express, { Express, Router } from "express";
 import bodyParser from "body-parser";
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './swagger-output.json';
 
 import morgan from "morgan";
 import routerResource from "./routers/resource";
+import { createConnectionQuery } from "./db/connection";
 
 const currentVersion = "v1";
 
@@ -11,19 +14,16 @@ export async function startServer() {
   const port = 7070;
 
   try {
-    // const conn = await Database.getConnection();
+    const conn = createConnectionQuery();
 
     // Set app variables
-    // app.set("firebaseAuth", firebaseAuth);
-    // app.set("db", conn);
-    // app.set("twilioService", twilioService);
-    // app.set("expo", expo);
-
+    app.set("db", conn);
     // Middleware
     app.use(morgan("combined"));
     app.use(express.json());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+    app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
     // Routers
 

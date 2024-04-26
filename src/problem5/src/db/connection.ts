@@ -10,6 +10,8 @@ export const createConnectionQuery = () => {
     return db;
 }
 
+export type Connection = ReturnType<typeof createConnectionQuery>;
+
 export const createConnectionMigrations = () => {
     const migrationClient = postgres(connectionString, { max: 1 });
     const db = drizzle(migrationClient);
