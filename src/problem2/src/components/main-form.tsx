@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import InputHF from "./input-hf";
 import { useMutation } from "@tanstack/react-query";
+import { ReloadIcon } from "@radix-ui/react-icons"
 import { exchangeToken } from "@/apis/prices";
 import SelectHF from "./select-hf";
 import { Label } from "./ui/label";
@@ -24,7 +25,7 @@ export type FormValues = z.infer<typeof formSchema>;
 export default function MainForm() {
   const { data = [], isLoading, error } = usePrices();
 
-  const { mutate, error: exchangeTokenError } = useMutation({
+  const { mutate, error: exchangeTokenError, isPending } = useMutation({
     mutationKey: ["exchangeToken"],
     mutationFn: exchangeToken,
   });
@@ -119,7 +120,10 @@ export default function MainForm() {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <Button type="submit">Exchange</Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> : null}
+            Exchange
+            </Button>
         </div>
       </form>
     </Form>

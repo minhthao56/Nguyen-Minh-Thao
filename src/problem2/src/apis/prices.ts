@@ -12,9 +12,11 @@ export interface ExchangeTokenRequest {
     amountFrom: number;
 }
 
+const fakeTimeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const exchangeToken = async ({ amountFrom, priceFrom, priceTo }: ExchangeTokenRequest) => {
     const rate = priceTo / priceFrom;
     const amountTo = amountFrom * rate;
+    await fakeTimeout(500);
     return amountTo;
 }
