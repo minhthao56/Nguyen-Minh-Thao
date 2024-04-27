@@ -27,7 +27,7 @@
     "start": "ts-node .",
     "build": "rm -rf dist && tsc",
     "migration": "ts-node src/db/migrate.ts",
-    "get:migration": "yarn drizzle-kit generate:pg",
+    "gen:migration": "yarn drizzle-kit generate:pg",
     "swagger": "ts-node src/swagger.ts"
   }
 }
